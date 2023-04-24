@@ -37,13 +37,13 @@ def IncrementalOTA_Assertions(info):
   return
 
 def AddImage(info, basename, dest):
-  path = "IMAGES/" + basename
+  path = f"IMAGES/{basename}"
   if path not in info.input_zip.namelist():
     return
 
   data = info.input_zip.read(path)
   common.ZipWriteStr(info.output_zip, basename, data)
-  info.script.AppendExtra('package_extract_file("%s", "%s");' % (basename, dest))
+  info.script.AppendExtra(f'package_extract_file("{basename}", "{dest}");')
 
 def OTA_InstallEnd(info):
   info.script.Print("Patching firmware images...")
